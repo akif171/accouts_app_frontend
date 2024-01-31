@@ -1,9 +1,12 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  const data = useAppSelector((state) => state.incomeSheet);
+  console.log(data);
 
-export default page
+  return <div>page</div>;
+};
+
+export default page;

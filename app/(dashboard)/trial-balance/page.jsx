@@ -1,11 +1,19 @@
 "use client";
-
-import Modal from "@/components/Modal";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
-import { dummyData } from "@/data/journalEntry";
+import { setData } from "@/lib/features/income-sheet/incomeSheetSlice";
 
 const page = () => {
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.incomeSheet);
+  console.log(data);
+  let bgColor = "";
   const [ledgers, setLedgers] = useState([]);
+  const [isRevenue, setIsRevenue] = useState(false);
+  const [isExpense, setIsExpense] = useState(false);
+  const [reset, setReset] = useState(false);
+  const [revenues, setRevenues] = useState(data.revenues);
+  const [expenses, setExpenses] = useState(data.expenses);
 
   const allDebits = [];
   const allCredits = [];
@@ -13,6 +21,43 @@ const page = () => {
   let debitBalance;
   let creditBalance;
 
+  const handleCheck = (e) => {
+    const { value } = e.target;
+
+    if (value === "revenue") {
+      setIsRevenue(true);
+      setIsExpense(false);
+    } else {
+      setIsExpense(true);
+      setIsRevenue(false);
+    }
+  };
+  
+  const handleStatus = (entry) => {
+    const rev = revenues.some((r) => r.transId == entry.transId);
+    const exp = expenses.some((e) => e.transId == entry.transId);
+
+    if (rev) {
+      const filteredRev = revenues.filter((r) => r.transId != entry.transId);
+      setRevenues(() => [...filteredRev]);
+      return;
+    }
+    if (exp) {
+      const filteredExp = expenses.filter((e) => e.transId != entry.transId);
+      setExpenses(() => [...filteredExp]);
+      return;
+    }
+    if (isRevenue) {
+      setRevenues((prevIds) => [...prevIds, entry]);
+    }
+    if (isExpense) {
+      setExpenses((prevIds) => [...prevIds, entry]);
+    }
+  };
+  // console.log(bgColor);
+
+  // console.log("revenue", isRevenue);
+  // console.log("expense", isExpense);
   useEffect(() => {
     async function fetchLedgers() {
       const res = await fetch("http://localhost:5000/api/ledger");
@@ -26,129 +71,38 @@ const page = () => {
   return (
     <div className="w-full">
       <h1 className="text-center text-2xl mt-5 font-bold">Trial Balance</h1>
-      {/* <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <h1 className="text-center font-bold text-xl">General Journal</h1>
-        <div>
-          <form>
-            <div className="w-full mt-5 border border-gray-500 p-3 rounded-lg">
-              <h2 className="text-center font-bold">Debit</h2>
-
-              <div className="flex my-5">
-                <div className="flex flex-col">
-                  <label>Account Name</label>
-                  <input
-                    onChange={handleDebit}
-                    className="border p-2 col-span-3"
-                    type="text"
-                    name="account_name"
-                    value={debit.account_name}
-                    placeholder="account name"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <label>Type</label>
-                  <select
-                    className="border p-2"
-                    name="account_type"
-                    onChange={handleDebit}
-                  >
-                    {accountTypes.map((acc) => (
-                      <option value={acc}>{acc}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex flex-col">
-                  <label>Amount</label>
-                  <input
-                    onChange={handleDebit}
-                    className="border p-2"
-                    type="text"
-                    name="amount"
-                    value={debit.amount}
-                    placeholder="amount"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="w-full mt-5 border border-gray-500 p-3 rounded-lg">
-              <h2 className="text-center font-bold">Credit</h2>
-
-              <div className="flex my-5">
-                <div className="flex flex-col">
-                  <label>Account Name</label>
-                  <input
-                    onChange={handleCredit}
-                    className="border p-2 col-span-3"
-                    type="text"
-                    name="account_name"
-                    value={credit.account_name}
-                    placeholder="account name"
-                  />
-                </div>
-
-                <div className="flex flex-col">
-                  <label>Type</label>
-                  <select
-                    className="border p-2"
-                    name="account_type"
-                    onChange={handleCredit}
-                  >
-                    {accountTypes.map((acc) => (
-                      <option value={acc}>{acc}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex flex-col">
-                  <label>Amount</label>
-                  <input
-                    onChange={handleCredit}
-                    className="border p-2"
-                    type="text"
-                    name="amount"
-                    value={credit.amount}
-                    placeholder="amount"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <input
-                required
-                onChange={handleEntry}
-                type="text"
-                name="description"
-                value={entry.description}
-                placeholder="description"
-                className="w-full p-3 border border-gray-500 rounded-lg mt-5"
-              />
-            </div>
-          </form>
-          <div className="flex justify-between mt-5">
-            <button
-              onClick={closeModal}
-              className="py-2 px-5 bg-red-300 rounded-lg"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSubmit}
-              className="py-2 px-5 bg-green-300 rounded-lg"
-            >
-              Save Entry
-            </button>
+      <div className="flex gap-5 my-5  ml-10">
+        <div className="flex gap-3 justify-center items-center">
+          <span>Select One : </span>
+          <div className="flex gap-1">
+            <label>Revenue</label>
+            <input
+              type="radio"
+              value="revenue"
+              name="status"
+              // checked={isRevenue}
+              // defaultChecked
+              onChange={(e) => handleCheck(e)}
+            />
+          </div>
+          <div className="flex gap-1">
+            <label>Expense</label>
+            <input
+              type="radio"
+              name="status"
+              // checked={isExpense}
+              value="expense"
+              onChange={(e) => handleCheck(e)}
+            />
           </div>
         </div>
-      </Modal> */}
-      {/* <div className="flex justify-end mr-10 mt-10">
         <button
-          // onClick={openModal}
-          className="py-3 px-5 rounded-lg bg-amber-300"
+          className="py-2 px-3 rounded bg-green-300"
+          onClick={() => dispatch(setData({ revenues, expenses }))}
         >
-          Create Entry
-        </button>
-      </div> */}
+          Submit
+        </button>{" "}
+      </div>
 
       <table className="flex flex-col justify-center mt-5 text-black ">
         <thead className=" mx-8  bg-blue-200">
@@ -207,17 +161,32 @@ const page = () => {
             debitBalance = allDebits.reduce((a, b) => a + b, 0);
             creditBalance = allCredits.reduce((a, b) => a + b, 0);
 
-            console.log(debitBalance);
-            console.log(creditBalance);
+            const rev = revenues.some((r) => r.transId == trans._id);
+            const exp = expenses.some((e) => e.transId == trans._id);
 
-            console.log(allDebits);
-            console.log(allCredits);
+            // console.log(debitBalance);
+            // console.log(creditBalance);
+
+            // console.log(allDebits);
+            // console.log(allCredits);
 
             // console.log(total);
             // console.log(balance);
             return (
-              <tr className="grid grid-cols-1">
-                <td className="grid grid-cols-12 w-full ">
+              <tr key={trans._id} className="flex flex-col">
+                <td
+                  onClick={() =>
+                    handleStatus({
+                      transId: trans._id,
+                      acc_name: trans.account_name,
+                      debit: debitTotal > creditTotal ? balance : 0,
+                      credit: debitTotal < creditTotal ? balance : 0,
+                    })
+                  }
+                  className={`grid grid-cols-12 w-full hover:bg-slate-300 cursor-pointer ${
+                    rev ? "bg-green-300" : exp ? "bg-red-300" : ""
+                  }`}
+                >
                   <div className="border border-black col-span-1 text-center">
                     15-1-2024
                   </div>
