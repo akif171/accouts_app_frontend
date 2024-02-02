@@ -38,8 +38,8 @@ const Login = () => {
     });
     const data = await res.json();
     console.log(data);
-    localStorage.setItem("auth-token", data?.token);
     if (res.status === 200) {
+      localStorage.setItem("token", data.token);
       setUser(initialUser);
       router.push("/journal");
     }

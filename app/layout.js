@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          <div className="flex ">{children}</div>
+          <div className=" ">{children}</div>
         </StoreProvider>
       </body>
     </html>

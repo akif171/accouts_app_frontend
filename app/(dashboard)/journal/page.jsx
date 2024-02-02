@@ -100,7 +100,14 @@ const page = () => {
 
   useEffect(() => {
     function fetchTransactions() {
-      fetch("http://localhost:5000/api/journal")
+      fetch("http://localhost:5000/api/journal", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
         .then((res) => res.json())
         .then((data) => {
           setAllEntries(data);

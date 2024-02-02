@@ -69,7 +69,7 @@ const page = () => {
   // console.log(ledgers);
 
   return (
-    <div className="w-full">
+    <div className="w-full">  
       <h1 className="text-center text-2xl mt-5 font-bold">Trial Balance</h1>
       <div className="flex gap-5 my-5  ml-10">
         <div className="flex gap-3 justify-center items-center">
