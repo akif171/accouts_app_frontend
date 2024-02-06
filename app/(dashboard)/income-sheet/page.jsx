@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 
 const page = () => {
   const { revenues, expenses } = useAppSelector((state) => state.incomeSheet);

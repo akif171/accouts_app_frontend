@@ -38,8 +38,8 @@ const Sidebar = () => {
         <h1 className="text-center text-xl mt-3">Accounts</h1>
       </Link>
       <ul className="mt-5">
-        {routeLinks.map((route) => (
-          <Link href={route.link} className="">
+        {routeLinks.map((route, index) => (
+          <Link href={route.link} key={index} className="">
             <li className="p-3 hover:bg-orange-200">{route.name}</li>
           </Link>
         ))}
