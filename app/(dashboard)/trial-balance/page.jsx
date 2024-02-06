@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { useEffect, useState } from "react";
 import { setData } from "@/lib/features/income-sheet/incomeSheetSlice";
 
-const page = () => {
+const Page = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.incomeSheet);
   console.log(data);
@@ -225,4 +225,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

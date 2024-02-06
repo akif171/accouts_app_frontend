@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useAppSelector } from "@/lib/hooks";
-const page = () => {
+const Page = () => {
   const { revenues, expenses } = useAppSelector((state) => state.incomeSheet);
   console.log(revenues, expenses);
 
@@ -80,4 +80,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

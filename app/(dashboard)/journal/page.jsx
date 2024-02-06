@@ -13,7 +13,7 @@ const accountTypes = [
   "Capital",
 ];
 
-const page = () => {
+const Page = () => {
   const initialDebit = {
     account_name: "",
     account_type: "",
@@ -316,4 +316,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

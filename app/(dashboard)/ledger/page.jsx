@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { dummyData } from "@/data/journalEntry";
 // console.log(dummyData);
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [transactions, setTransactions] = useState([]);
@@ -298,4 +298,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
