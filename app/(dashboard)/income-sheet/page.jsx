@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { useAppSelector } from "@/lib/hooks";
-
 const page = () => {
   const { revenues, expenses } = useAppSelector((state) => state.incomeSheet);
   console.log(revenues, expenses);
@@ -39,8 +38,8 @@ const page = () => {
             <td className="col-span-8 pl-3 font-bold">Revenues</td>
             <td className="col-span-2 font-bold">Amounts</td>
           </tr>
-          {revenues.map((acc) => (
-            <tr className="grid grid-cols-10 bg-slate-200">
+          {revenues.map((acc, index) => (
+            <tr key={index} className="grid grid-cols-10 bg-slate-200">
               <td className="col-span-8 pl-3">{acc.acc_name}</td>
               <td className="col-span-2">
                 {acc.debit > 0 ? acc.debit : acc.credit}
@@ -55,8 +54,8 @@ const page = () => {
             <td className="col-span-8 pl-3 font-bold">Expenses</td>
             <td className="col-span-2 font-bold">Amounts</td>
           </tr>
-          {expenses.map((acc) => (
-            <tr className="grid grid-cols-10 bg-slate-200">
+          {expenses.map((acc, index) => (
+            <tr key={index} className="grid grid-cols-10 bg-slate-200">
               <td className="col-span-8 pl-3">{acc.acc_name}</td>
               <td className="col-span-2">
                 {acc.debit > 0 ? acc.debit : acc.credit}

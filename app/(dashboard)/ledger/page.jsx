@@ -141,7 +141,7 @@ const page = () => {
           <p className="my-2 text-red-500">Account doen not found.</p>
         )}
       </div>
-      {ledgers.map((trans) => {
+      {ledgers.map((trans, index) => {
         const debit = trans.transactionIds.filter(
           (entry) => entry.debit.account_name == trans.account_name
         );
@@ -172,7 +172,7 @@ const page = () => {
           balance = total - debitTotal;
         }
         return (
-          <div>
+          <div key={index}>
             <h1 className="text-center my-3 text-xl font-bold capitalize">
               {trans.account_name} Ledger
             </h1>
@@ -211,10 +211,10 @@ const page = () => {
               </thead>
               <tbody className="grid grid-cols-2 gap-0 text-center">
                 <tr>
-                  {debit.map((entry) => {
+                  {debit.map((entry, index) => {
                     // console.log(entry);
                     return (
-                      <td className="grid grid-cols-6 m">
+                      <td key={index} className="grid grid-cols-6 m">
                         <div className="border border-gray-500">
                           {new Date(entry.createdAt).toLocaleDateString()}
                         </div>
@@ -230,8 +230,8 @@ const page = () => {
                   })}
                 </tr>
                 <tr>
-                  {credit.map((entry) => (
-                    <td className="grid grid-cols-6 ">
+                  {credit.map((entry, index) => (
+                    <td key={index} className="grid grid-cols-6 ">
                       <div className="border border-gray-500">
                         {new Date(entry.createdAt).toLocaleDateString()}
                       </div>
