@@ -8,7 +8,7 @@ export async function middleware(request) {
   const token = request.cookies.get("auth-token")?.value || "";
   console.log("token", token);
 
-  const isPublicPath = path === "/login" || path === "sign-up";
+  const isPublicPath = path === "/login" || path === "/sign-up";
 
   if (!isPublicPath && !token) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
