@@ -6,6 +6,7 @@ export async function middleware(request) {
   const path = request.nextUrl.pathname;
 
   const token = request.cookies.get("auth-token")?.value || "";
+  console.log("token", token);
 
   const isPublicPath = path === "/login" || path === "sign-up";
 
@@ -19,7 +20,7 @@ export async function middleware(request) {
 
   if (path === "/logout") {
     deleteCookie("auth-token");
-    // return NextResponse.next();
+    return NextResponse.next();
   }
 }
 

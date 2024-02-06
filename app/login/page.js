@@ -12,6 +12,7 @@ const Login = () => {
     email: "",
     password: "",
   };
+  console.log(process.env.BACKEND_URL);
 
   const [user, setUser] = useState(initialUser);
 
@@ -27,7 +28,7 @@ const Login = () => {
   console.log(user);
 
   const handleSubmit = async () => {
-    const res = await fetch("http://localhost:5000/login", {
+    const res = await fetch(`https://accounts-api-plum.vercel.app/login`, {
       method: "POST",
       body: JSON.stringify(user),
       headers: {

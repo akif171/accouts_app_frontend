@@ -37,14 +37,14 @@ const page = () => {
       transactionIds,
     };
 
-    const data = await fetch("http://localhost:5000/api/ledger", {
+    const data = await fetch(`${process.env.BACKEND_URL}/api/ledger`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(ledgerObj),
-    }); 
+    });
 
     setAccount("");
     // router.refresh()
@@ -67,7 +67,7 @@ const page = () => {
     console.log(id);
     // console.log(ledgerObj);
 
-    const data = await fetch(`http://localhost:5000/api/ledger/${id}`, {
+    const data = await fetch(`${process.env.BACKEND_URL}/api/ledger/${id}`, {
       method: "PUT",
       headers: {
         // Accept: "application/json",

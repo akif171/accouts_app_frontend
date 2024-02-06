@@ -26,7 +26,7 @@ const SignUp = () => {
   console.log(user);
 
   const handleSubmit = async () => {
-    const res = await fetch("http://localhost:5000/register", {
+    const res = await fetch(`${process.env.BACKEND_URL}/register`, {
       method: "POST",
       body: JSON.stringify(user),
       headers: {

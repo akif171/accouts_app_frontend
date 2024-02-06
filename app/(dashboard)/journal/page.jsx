@@ -76,7 +76,7 @@ const page = () => {
   };
 
   const handleSubmit = () => {
-    fetch("http://localhost:5000/api/journal", {
+    fetch(`${process.env.BACKEND_URL}/api/journal`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -100,7 +100,7 @@ const page = () => {
 
   useEffect(() => {
     function fetchTransactions() {
-      fetch("http://localhost:5000/api/journal", {
+      fetch(`https://accounts-api-plum.vercel.app/api/journal`, {
         method: "GET",
         headers: {
           Accept: "application/json",
