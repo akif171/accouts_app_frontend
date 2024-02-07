@@ -37,14 +37,17 @@ const Page = () => {
       transactionIds,
     };
 
-    const data = await fetch(`${process.env.BACKEND_URL}/api/ledger`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(ledgerObj),
-    });
+    const data = await fetch(
+      `https://accounts-api-plum.vercel.app/api/ledger`,
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ledgerObj),
+      }
+    );
 
     setAccount("");
     // router.refresh()
@@ -67,14 +70,17 @@ const Page = () => {
     console.log(id);
     // console.log(ledgerObj);
 
-    const data = await fetch(`${process.env.BACKEND_URL}/api/ledger/${id}`, {
-      method: "PUT",
-      headers: {
-        // Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(ledgerObj),
-    });
+    const data = await fetch(
+      `https://accounts-api-plum.vercel.app/api/ledger/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          // Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(ledgerObj),
+      }
+    );
     console.log(data);
 
     // console.log(transactions);
@@ -87,14 +93,14 @@ const Page = () => {
 
     setLedgers(filteredLedgers);
 
-    const data = await fetch(`http://localhost:5000/api/ledger/${id}`, {
+    const data = await fetch(`https://accounts-api-plum.vercel.app/api/ledger/${id}`, {
       method: "DELETE",
     });
   }
 
   useEffect(() => {
     if (account) {
-      fetch(`http://localhost:5000/api/journal?account=${account}`)
+      fetch(`https://accounts-api-plum.vercel.app/api/journal?account=${account}`)
         .then((res) => res.json())
         .then((data) => setTransactions(data));
     }
@@ -102,7 +108,7 @@ const Page = () => {
 
   useEffect(() => {
     async function fetchLedgers() {
-      const res = await fetch("http://localhost:5000/api/ledger");
+      const res = await fetch("https://accounts-api-plum.vercel.app/api/ledger");
       const data = await res.json();
       setLedgers(data);
     }

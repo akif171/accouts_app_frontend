@@ -76,7 +76,7 @@ const Page = () => {
   };
 
   const handleSubmit = () => {
-    fetch(`${process.env.BACKEND_URL}/api/journal`, {
+    fetch(`https://accounts-api-plum.vercel.app/api/journal`, {
       method: "POST",
       headers: {
         Accept: "application/json",

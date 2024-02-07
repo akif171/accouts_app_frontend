@@ -14,7 +14,7 @@ const Sidebar = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const res = await fetch("http://localhost:5000/logout", {
+    const res = await fetch("https://accounts-api-plum.vercel.app/logout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,12 +43,12 @@ const Sidebar = () => {
             <li className="p-3 hover:bg-orange-200">{route.name}</li>
           </Link>
         ))}
-        <button
+        {/* <button
           onClick={handleLogout}
           className="py-2 px-3 rounded bg-yellow-300 ml-5 mt-3"
         >
           LogOut
-        </button>
+        </button> */}
       </ul>
     </div>
   );

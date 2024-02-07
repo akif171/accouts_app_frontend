@@ -26,7 +26,7 @@ const SignUp = () => {
   console.log(user);
 
   const handleSubmit = async () => {
-    const res = await fetch(`${process.env.BACKEND_URL}/register`, {
+    const res = await fetch(`https://accounts-api-plum.vercel.app/register`, {
       method: "POST",
       body: JSON.stringify(user),
       headers: {

@@ -2,11 +2,9 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import cookieCutter from "cookie-cutter";
-import Cookie from "js-cookie";
+
 
 const Login = () => {
-  // const cookies = useCookies();
   const router = useRouter();
   const initialUser = {
     email: "",
@@ -49,28 +47,30 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-center gap-5 items-center mt-20 w-full">
       <h1 className="text-3xl">Login</h1>
-      <div className="flex flex-col">
-        <label className="mb-2">Email</label>
-        <input
-          name="email"
-          value={user.email}
-          onChange={handleChange}
-          type="text"
-          placeholder="email"
-          className="outline-none border border-gray-300 p-2 bg-gray-100 rounded "
-        />
-      </div>
-      <div className="flex flex-col">
-        <label className="mb-2">Password</label>
-        <input
-          name="password"
-          value={user.password}
-          onChange={handleChange}
-          type="password"
-          placeholder="password"
-          className="outline-none border border-gray-300 p-2 bg-gray-100 rounded "
-        />
-      </div>
+      <form>
+        <div className="flex flex-col">
+          <label className="mb-2">Email</label>
+          <input
+            name="email"
+            value={user.email}
+            onChange={handleChange}
+            type="text"
+            placeholder="email"
+            className="outline-none border border-gray-300 p-2 bg-gray-100 rounded "
+          />
+        </div>
+        <div className="flex flex-col">
+          <label className="mb-2">Password</label>
+          <input
+            name="password"
+            value={user.password}
+            onChange={handleChange}
+            type="password"
+            placeholder="password"
+            className="outline-none border border-gray-300 p-2 bg-gray-100 rounded "
+          />
+        </div>
+      </form>
       <p>
         do not have an account?{" "}
         <Link href={"/sign-up"} className="text-blue-500">

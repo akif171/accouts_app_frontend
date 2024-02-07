@@ -32,7 +32,7 @@ const Page = () => {
       setIsRevenue(false);
     }
   };
-  
+
   const handleStatus = (entry) => {
     const rev = revenues.some((r) => r.transId == entry.transId);
     const exp = expenses.some((e) => e.transId == entry.transId);
@@ -60,7 +60,9 @@ const Page = () => {
   // console.log("expense", isExpense);
   useEffect(() => {
     async function fetchLedgers() {
-      const res = await fetch("http://localhost:5000/api/ledger");
+      const res = await fetch(
+        "https://accounts-api-plum.vercel.app/api/ledger"
+      );
       const data = await res.json();
       setLedgers(data);
     }
@@ -69,7 +71,7 @@ const Page = () => {
   // console.log(ledgers);
 
   return (
-    <div className="w-full">  
+    <div className="w-full">
       <h1 className="text-center text-2xl mt-5 font-bold">Trial Balance</h1>
       <div className="flex gap-5 my-5  ml-10">
         <div className="flex gap-3 justify-center items-center">
